@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  mysql-demo:
+    image: mysql:latest
+    # volumes:
+    #   - ~/volumes/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456aA@
+    ports:
+      - "3306:3306"

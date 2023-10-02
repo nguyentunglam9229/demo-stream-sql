@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet id="1" author="lamnt">
+        <sql>
+            CREATE SEQUENCE IF NOT EXISTS user_seq START WITH 1 INCREMENT BY 1;
+        </sql>
+        <rollback>
+            DROP SEQUENCE user_seq;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="lamnt">
+        <sql>
+            CREATE TABLE users
+            (
+                id        BIGINT       NOT NULL,
+                user_name VARCHAR(255) NOT NULL,
+                email     VARCHAR(255) NOT NULL,
+                CONSTRAINT pk_users PRIMARY KEY (id)
+            );
+        </sql>
+        <rollback>
+            DROP TABLE USERS;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3" author="lamnt">
+        <sql>
+            insert into users(id, user_name, email)
+            select nextval('user_seq'), random_string(100), random_string(100)
+            from generate_series(1, 3000000);
+        </sql>
+        <rollback>
+            delete from users;
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
