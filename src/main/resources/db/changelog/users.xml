@@ -30,7 +30,7 @@
         <sql>
             insert into users(id, user_name, email)
             select nextval('user_seq'), random_string(100), random_string(100)
-            from generate_series(1, 3000000);
+            from generate_series(1, 30000);
         </sql>
         <rollback>
             delete from users;
