@@ -8,6 +8,12 @@ pipeline {
                 sh 'mvn clean package -Dmaven.test.skip'
             }
         }
+
+        stage('deploy') {
+            steps {
+                sh 'java -jar demo-stream-sql-data-0.0.1-SNAPSHOT.jar'
+            }
+        }
     }
 
 }
